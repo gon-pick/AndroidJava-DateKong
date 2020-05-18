@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "22176131380",
+    "firebase_url": "https://datekong-f48cf.firebaseio.com",
+    "project_id": "datekong-f48cf",
+    "storage_bucket": "datekong-f48cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22176131380:android:46488c1fc17c0c9890dd61",
+        "android_client_info": {
+          "package_name": "org.techtown.datekong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22176131380-cresngtgegkq9rs9f0r85hkg9o808s2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC26ftJOSkB5GAIh-hGuQM0IAsJgklC3tI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22176131380-cresngtgegkq9rs9f0r85hkg9o808s2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
