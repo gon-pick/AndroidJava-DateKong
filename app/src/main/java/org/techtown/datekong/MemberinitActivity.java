@@ -65,6 +65,8 @@ public class MemberinitActivity extends AppCompatActivity {
                             @Override
                                 public void onSuccess(Void aVoid) {
                                 startToast("회원정보 등록에 성공.");
+                                finish();
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -85,6 +87,10 @@ public class MemberinitActivity extends AppCompatActivity {
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
+    private void myStartMainActivity(Class c) {
+        Intent intent = new Intent(this,c);
+        startActivity(intent);
+    }
 
 
 }
