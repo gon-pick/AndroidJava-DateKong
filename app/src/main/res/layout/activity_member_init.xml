@@ -4,58 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:gravity="center"
         android:text="회원정보"
+        android:textColor="#000000"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="#000000"/>
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="100dp" >
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@android:drawable/sym_def_app_icon" />
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="10dp">
+
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:id="@+id/nameEditText"
-            android:inputType="textPersonName"
-            android:hint="이름"/>
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:hint="이름"
+            android:inputType="textPersonName" />
+
+        <EditText
             android:id="@+id/phonenumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:hint="전화번호"
-            android:inputType="textPhonetic"/>
+            android:inputType="textPhonetic" />
+
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:id="@+id/birthDayEditText"
-            android:hint="생년월일" />
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:hint="생년월일" />
+
+        <EditText
             android:id="@+id/addressEdittext"
-            android:hint="주소"
-            android:inputType="textPostalAddress"/>
-        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="주소"
+            android:inputType="textPostalAddress" />
+
+        <Button
             android:id="@+id/CheckButton"
-            android:text="확인"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="확인" />
 
 
     </LinearLayout>
-
-
 </LinearLayout>

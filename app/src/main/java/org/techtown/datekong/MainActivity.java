@@ -18,6 +18,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Member;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         if(user == null){
             myStartMainActivity(SignupActivity.class);
         }else{
-            myStartMainActivity(CameraActivity.class);
+            myStartMainActivity(MemberinitActivity.class);
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference docRef = db.collection("users").document(user.getUid());
