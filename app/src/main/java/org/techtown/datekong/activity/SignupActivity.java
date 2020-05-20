@@ -1,8 +1,7 @@
-package org.techtown.datekong;
+package org.techtown.datekong.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +14,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.techtown.datekong.R;
+import org.techtown.datekong.activity.LoginActivity;
+import org.techtown.datekong.activity.MainActivity;
 
 public class SignupActivity  extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -54,6 +57,7 @@ public class SignupActivity  extends AppCompatActivity {
                 //로그인 함수
                 case R.id.gotoLoginButton:
                     myStartLoginActivity(LoginActivity.class);
+
                     break;
             }
         }

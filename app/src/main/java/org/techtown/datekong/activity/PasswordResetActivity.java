@@ -1,4 +1,4 @@
-package org.techtown.datekong;
+package org.techtown.datekong.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
+import org.techtown.datekong.R;
+import org.techtown.datekong.activity.MainActivity;
 
 public class PasswordResetActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -70,7 +71,7 @@ public class PasswordResetActivity extends AppCompatActivity {
 
     //mainactivity로 이동.
     private void startMainActivity() {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

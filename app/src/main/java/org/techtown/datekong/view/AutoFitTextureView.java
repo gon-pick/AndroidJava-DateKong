@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.techtown.datekong;
+package org.techtown.datekong.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

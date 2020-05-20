@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.techtown.datekong;
+package org.techtown.datekong.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,6 +24,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.techtown.datekong.R;
+import org.techtown.datekong.fragment.Camera2BasicFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
