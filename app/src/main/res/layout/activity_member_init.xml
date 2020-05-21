@@ -40,7 +40,7 @@
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="이름"
             android:inputType="textPersonName" />
@@ -48,7 +48,7 @@
         <EditText
             android:id="@+id/phonenumberEditText"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="전화번호"
             android:inputType="textPhonetic" />
@@ -56,14 +56,14 @@
         <EditText
             android:id="@+id/birthDayEditText"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="생년월일" />
 
         <EditText
             android:id="@+id/addressEdittext"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="주소"
             android:inputType="textPostalAddress" />
@@ -80,6 +80,7 @@
             android:layout_height="150dp"
             android:layout_marginTop="10dp"
             android:visibility="gone"
+            app:cardBackgroundColor="#2196F3"
             app:cardCornerRadius="15dp">
 
             <LinearLayout
