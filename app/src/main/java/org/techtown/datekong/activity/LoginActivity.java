@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.datekong.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BasicActivity{
     private FirebaseAuth mAuth;
 
 

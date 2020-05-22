@@ -19,7 +19,7 @@ import org.techtown.datekong.R;
 import org.techtown.datekong.activity.LoginActivity;
 import org.techtown.datekong.activity.MainActivity;
 
-public class SignupActivity  extends AppCompatActivity {
+public class SignupActivity  extends BasicActivity{
     private FirebaseAuth mAuth;
 
 

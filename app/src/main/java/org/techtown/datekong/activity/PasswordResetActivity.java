@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.techtown.datekong.R;
 import org.techtown.datekong.activity.MainActivity;
 
-public class PasswordResetActivity extends AppCompatActivity {
+public class PasswordResetActivity extends BasicActivity{
     private FirebaseAuth mAuth;
 
 
