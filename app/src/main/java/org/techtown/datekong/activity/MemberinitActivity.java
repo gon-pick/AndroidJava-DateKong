@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,7 @@ import java.io.InputStream;
 public class MemberinitActivity extends BasicActivity{
     private static final String TAG = "MemberInitActivity";
     private ImageView profileImageView;
+    private RelativeLayout loaderLayout;
     private String profilePath;
     private FirebaseUser user;
 
@@ -53,8 +55,8 @@ public class MemberinitActivity extends BasicActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_init);
 
+        loaderLayout = findViewById(R.id.loaderLyaout);
         profileImageView = findViewById(R.id.profileImageView);
-
         profileImageView.setOnClickListener(onClickListener);
         findViewById(R.id.CheckButton).setOnClickListener(onClickListener);
         findViewById(R.id.PictureButton).setOnClickListener(onClickListener);
@@ -87,7 +89,7 @@ public class MemberinitActivity extends BasicActivity{
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.CheckButton:
-                    profileUpdate();
+                    storageUploader();
                     break;
                 case R.id.profileImageView:
                     CardView cardView = findViewById(R.id.buttonsCardView);
@@ -98,7 +100,7 @@ public class MemberinitActivity extends BasicActivity{
                     }
                     break;
                 case R.id.PictureButton:
-                    myStartMainActivity(CameraActivity.class);
+                    myStartMainActivity(CameraActivity.class,"image");
                     break;
                 case R.id.GalleryButton:
 
@@ -115,7 +117,7 @@ public class MemberinitActivity extends BasicActivity{
                             startToast("권한을 허용해 주세요.");
                         }
                     } else {
-                        myStartMainActivity(GalleryActivity.class);
+                        myStartMainActivity(GalleryActivity.class,"image");
                     }
                     break;
             }
@@ -127,7 +129,7 @@ public class MemberinitActivity extends BasicActivity{
         switch (requestCode) {
             case 1: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    myStartMainActivity(GalleryActivity.class);
+                    myStartMainActivity(GalleryActivity.class,"image");
                 } else {
                     startToast("권한을 허용해 주세요.");
                 }
@@ -135,7 +137,7 @@ public class MemberinitActivity extends BasicActivity{
         }
     }
 
-    private void profileUpdate() {
+    private void storageUploader() {
         final String name = ((EditText)findViewById(R.id.nameEditText)).getText().toString();
         final String phoneNumber = ((EditText)findViewById(R.id.phonenumberEditText)).getText().toString();
         final String birthDay = ((EditText)findViewById(R.id.birthDayEditText)).getText().toString();
@@ -144,6 +146,7 @@ public class MemberinitActivity extends BasicActivity{
 
         //기존 사용자 로그인
         if(name.length()>0 && phoneNumber.length() > 9 && birthDay.length() > 5 && address.length()>0) {
+            loaderLayout.setVisibility(View.VISIBLE);
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
 
@@ -152,7 +155,7 @@ public class MemberinitActivity extends BasicActivity{
 
             if(profilePath==null){
                 Memberinfo memberInfo = new Memberinfo(name, phoneNumber, birthDay, address);
-                uploader(memberInfo);
+                storageUploader(memberInfo);
             }else {
                 try {
                     InputStream stream = new FileInputStream(new File(profilePath));
@@ -175,7 +178,7 @@ public class MemberinitActivity extends BasicActivity{
                                 Uri downloadUri = task.getResult();
 
                                 Memberinfo memberInfo = new Memberinfo(name, phoneNumber, birthDay, address, downloadUri.toString());
-                                uploader(memberInfo);
+                                storageUploader(memberInfo);
                             } else {
                                 startToast("회원정보를 보내는데 실패하였습니다.");
                             }
@@ -193,13 +196,14 @@ public class MemberinitActivity extends BasicActivity{
 
 
 
-    private void uploader(Memberinfo memberInfo){
+    private void storageUploader(Memberinfo memberInfo){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(user.getUid()).set(memberInfo)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         startToast("회원정보 등록에 성공.");
+                        loaderLayout.setVisibility(View.GONE);
                         finish();
 
                     }
@@ -208,6 +212,7 @@ public class MemberinitActivity extends BasicActivity{
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         startToast("회원정보 등록에 실패");
+                        loaderLayout.setVisibility(View.GONE);
                         Log.w(TAG,"Error!!");
                     }
                 });
@@ -217,10 +222,12 @@ public class MemberinitActivity extends BasicActivity{
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
-    private void myStartMainActivity(Class c) {
+    private void myStartMainActivity(Class c,String media) {
         Intent intent = new Intent(this,c);
+        intent.putExtra("media",media);
         startActivityForResult(intent,0);
     }
+
 
 
 }

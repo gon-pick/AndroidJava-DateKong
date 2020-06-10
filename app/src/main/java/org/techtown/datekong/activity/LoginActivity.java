@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class LoginActivity extends BasicActivity{
 
         findViewById(R.id.LoginButton).setOnClickListener(onClickListener);
         findViewById(R.id.gotoPasswordReset).setOnClickListener(onClickListener);
+        findViewById(R.id.SignUpBtn).setOnClickListener(onClickListener);
     }
 
     //리스너 연결.
@@ -39,26 +41,32 @@ public class LoginActivity extends BasicActivity{
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.LoginButton:
-                    signIn();
+                    login();
                     break;
                 case R.id.gotoPasswordReset:
                     myStartMainActivity(PasswordResetActivity.class);
                     break;
+                case R.id.SignUpBtn:
+                    myStartMainActivity(SignupActivity.class);
+                    finish();
             }
         }
     };
 
 
-    private void signIn() {
-        String email = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
-        String password = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
+    private void login() {
+        String email = ((EditText) findViewById(R.id.emailEditText)).getText().toString();
+        String password = ((EditText) findViewById(R.id.passwordEditText)).getText().toString();
 
         //기존 사용자 로그인
         if(email.length() > 0 && password.length()>0){
+            final RelativeLayout loaderLayout = findViewById(R.id.loaderLyaout);
+            loaderLayout.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            loaderLayout.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getCurrentUser();
