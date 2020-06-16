@@ -1,14 +1,19 @@
 package org.techtown.datekong.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +32,39 @@ public class GalleryActivity extends BasicActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+        if (ContextCompat.checkSelfPermission(GalleryActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(GalleryActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    1);
+            if (ActivityCompat.shouldShowRequestPermissionRationale(GalleryActivity.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+            } else {
+                startToast("권한을 허용해 주세요");
+            }
+        } else {
+            recyclerInit();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    recyclerInit();
+                } else {
+                    finish();
+                    startToast("권한을 허용해 주세요.");
+                }
+            }
+        }
+    }
+
+    private void recyclerInit(){
+
         final int numberOfColumns=3;
 
         recyclerView = findViewById(R.id.recycleView);
@@ -36,6 +74,7 @@ public class GalleryActivity extends BasicActivity{
         mAdapter = new GalleryAdapter(this,getImagesPath(this));
         recyclerView.setAdapter(mAdapter);
     }
+
 
     public ArrayList<String> getImagesPath(Activity activity) {
         Uri uri;
@@ -69,5 +108,9 @@ public class GalleryActivity extends BasicActivity{
             listOfAllImages.add(PathOfImage);
         }
         return listOfAllImages;
+    }
+
+    private void startToast(String msg){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }

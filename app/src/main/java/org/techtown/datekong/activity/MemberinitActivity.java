@@ -100,42 +100,15 @@ public class MemberinitActivity extends BasicActivity{
                     }
                     break;
                 case R.id.PictureButton:
-                    myStartMainActivity(CameraActivity.class,"image");
+                    myStartActivity(CameraActivity.class,"image");
                     break;
                 case R.id.GalleryButton:
-
-                    if (ContextCompat.checkSelfPermission(MemberinitActivity.this,
-                            Manifest.permission.READ_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MemberinitActivity.this,
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                1);
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(MemberinitActivity.this,
-                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        } else {
-
-                            startToast("권한을 허용해 주세요.");
-                        }
-                    } else {
-                        myStartMainActivity(GalleryActivity.class,"image");
-                    }
+                   myStartActivity(GalleryActivity.class,"image");
                     break;
             }
         }
     };
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    myStartMainActivity(GalleryActivity.class,"image");
-                } else {
-                    startToast("권한을 허용해 주세요.");
-                }
-            }
-        }
-    }
 
     private void storageUploader() {
         final String name = ((EditText)findViewById(R.id.nameEditText)).getText().toString();
@@ -155,7 +128,7 @@ public class MemberinitActivity extends BasicActivity{
 
             if(profilePath==null){
                 Memberinfo memberInfo = new Memberinfo(name, phoneNumber, birthDay, address);
-                storageUploader(memberInfo);
+                storeUploader(memberInfo);
             }else {
                 try {
                     InputStream stream = new FileInputStream(new File(profilePath));
@@ -178,7 +151,7 @@ public class MemberinitActivity extends BasicActivity{
                                 Uri downloadUri = task.getResult();
 
                                 Memberinfo memberInfo = new Memberinfo(name, phoneNumber, birthDay, address, downloadUri.toString());
-                                storageUploader(memberInfo);
+                                storeUploader(memberInfo);
                             } else {
                                 startToast("회원정보를 보내는데 실패하였습니다.");
                             }
@@ -196,7 +169,7 @@ public class MemberinitActivity extends BasicActivity{
 
 
 
-    private void storageUploader(Memberinfo memberInfo){
+    private void storeUploader(Memberinfo memberInfo){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(user.getUid()).set(memberInfo)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -222,7 +195,7 @@ public class MemberinitActivity extends BasicActivity{
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
-    private void myStartMainActivity(Class c,String media) {
+    private void myStartActivity(Class c,String media) {
         Intent intent = new Intent(this,c);
         intent.putExtra("media",media);
         startActivityForResult(intent,0);
