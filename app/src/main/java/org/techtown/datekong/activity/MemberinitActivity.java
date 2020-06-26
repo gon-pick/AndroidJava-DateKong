@@ -43,6 +43,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import static org.techtown.datekong.Util.showToast;
+
 public class MemberinitActivity extends BasicActivity{
     private static final String TAG = "MemberInitActivity";
     private ImageView profileImageView;
@@ -153,7 +155,7 @@ public class MemberinitActivity extends BasicActivity{
                                 Memberinfo memberInfo = new Memberinfo(name, phoneNumber, birthDay, address, downloadUri.toString());
                                 storeUploader(memberInfo);
                             } else {
-                                startToast("회원정보를 보내는데 실패하였습니다.");
+                                showToast(MemberinitActivity.this, "회원정보를 보내는데 실패하였습니다.");
                             }
                         }
                     });
@@ -163,7 +165,7 @@ public class MemberinitActivity extends BasicActivity{
                 }
             }
         }else{
-                startToast("회원정보를 입력해주세요.");
+            showToast(MemberinitActivity.this, "회원정보를 입력해주세요.");
             }
         }
 
@@ -175,7 +177,7 @@ public class MemberinitActivity extends BasicActivity{
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        startToast("회원정보 등록에 성공.");
+                        showToast(MemberinitActivity.this, "회원정보 등록에 성공.");
                         loaderLayout.setVisibility(View.GONE);
                         finish();
 
@@ -184,15 +186,11 @@ public class MemberinitActivity extends BasicActivity{
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        startToast("회원정보 등록에 실패");
+                        showToast(MemberinitActivity.this, "회원정보 등록에 실패");
                         loaderLayout.setVisibility(View.GONE);
                         Log.w(TAG,"Error!!");
                     }
                 });
-    }
-
-    private void startToast(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
     private void myStartActivity(Class c,String media) {

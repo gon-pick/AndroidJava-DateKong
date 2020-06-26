@@ -23,6 +23,8 @@ import org.techtown.datekong.adapter.GalleryAdapter;
 
 import java.util.ArrayList;
 
+import static org.techtown.datekong.Util.showToast;
+
 public class GalleryActivity extends BasicActivity{
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -42,7 +44,7 @@ public class GalleryActivity extends BasicActivity{
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
             } else {
-                startToast("권한을 허용해 주세요");
+                showToast(GalleryActivity.this, "권한을 허용해주세요");
             }
         } else {
             recyclerInit();
@@ -57,7 +59,7 @@ public class GalleryActivity extends BasicActivity{
                     recyclerInit();
                 } else {
                     finish();
-                    startToast("권한을 허용해 주세요.");
+                    showToast(GalleryActivity.this, "권한을 허용해 주세요");
                 }
             }
         }
@@ -108,9 +110,5 @@ public class GalleryActivity extends BasicActivity{
             listOfAllImages.add(PathOfImage);
         }
         return listOfAllImages;
-    }
-
-    private void startToast(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }

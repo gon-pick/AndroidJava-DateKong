@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.techtown.datekong.R;
 import org.techtown.datekong.activity.MainActivity;
 
+import static org.techtown.datekong.Util.showToast;
+
 public class PasswordResetActivity extends BasicActivity{
     private FirebaseAuth mAuth;
 
@@ -60,17 +62,13 @@ public class PasswordResetActivity extends BasicActivity{
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 loaderLayout.setVisibility(View.GONE);
-                                startToast("이메일을 보냈습니다.");
+                                showToast(PasswordResetActivity.this, "이메일을 보냈습니다.");
                             }
                         }
                     });
         }else{
-            startToast("이메일을 입력해 주세요.");
+            showToast(PasswordResetActivity.this, "이메일을 입력해 주세요.");
         }
-    }
-
-    private void startToast(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
     //mainactivity로 이동.

@@ -1,6 +1,7 @@
 package org.techtown.datekong.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -25,11 +26,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.datekong.PostInfo;
 import org.techtown.datekong.R;
+import org.techtown.datekong.activity.PostActivity;
 import org.techtown.datekong.listener.OnPostListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import static org.techtown.datekong.Util.isStorageUrl;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
     private ArrayList<PostInfo> mDataset;
@@ -63,12 +67,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @Override
     public MainAdapter.MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
-
         final MainViewHolder mainViewHolder = new MainViewHolder(cardView);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(activity, PostActivity.class);
+                intent.putExtra("postInfo", mDataset.get(mainViewHolder.getAdapterPosition()));
+                activity.startActivity(intent);
             }
         });
 
@@ -92,36 +97,36 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         TextView createdAtTextView = cardView.findViewById(R.id.createAtTextView);
         createdAtTextView.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(mDataset.get(position).getCreatedAt()));
 
-        LinearLayout contetnsLayout = cardView.findViewById(R.id.contentsLayout);
+        LinearLayout contentsLayout = cardView.findViewById(R.id.contentsLayout);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         ArrayList<String> contentsList = mDataset.get(position).getContents();
 
-        if (contetnsLayout.getTag() == null || !contetnsLayout.getTag().equals(contentsList)) {
-            contetnsLayout.setTag(contentsList);
-            contetnsLayout.removeAllViews();
+        if (contentsLayout.getTag() == null || !contentsLayout.getTag().equals(contentsList)) {
+            contentsLayout.setTag(contentsList);
+            contentsLayout.removeAllViews();
             final int MORE_INDEX = 2;
             for (int i = 0; i < contentsList.size(); i++) {
                 if (i == MORE_INDEX) {
                     TextView textView = new TextView(activity);
                     textView.setLayoutParams(layoutParams);
                     textView.setText("더보기...");
-                    contetnsLayout.addView(textView);
+                    contentsLayout.addView(textView);
                     break;
                 }
                 String contents = contentsList.get(i);
-                if (Patterns.WEB_URL.matcher(contents).matches() && contents.contains("https://firebasestorage.googleapis.com/v0/b/datekong-f48cf.appspot.com/o/posts")) {
+                if (isStorageUrl(contents)) {
                     ImageView imageView = new ImageView(activity);
                     imageView.setLayoutParams(layoutParams);
                     imageView.setAdjustViewBounds(true);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    contetnsLayout.addView(imageView);
+                    contentsLayout.addView(imageView);
                     Glide.with(activity).load(contents).override(1000).thumbnail(0.1f).into(imageView);
                 } else {
                     TextView textView = new TextView(activity);
                     textView.setLayoutParams(layoutParams);
                     textView.setText(contents);
                     textView.setTextColor(Color.rgb(0, 0, 0));
-                    contetnsLayout.addView(textView);
+                    contentsLayout.addView(textView);
                 }
             }
         }

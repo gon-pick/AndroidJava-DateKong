@@ -20,6 +20,8 @@ import org.techtown.datekong.R;
 import org.techtown.datekong.activity.LoginActivity;
 import org.techtown.datekong.activity.MainActivity;
 
+import static org.techtown.datekong.Util.showToast;
+
 public class SignupActivity  extends BasicActivity{
     private FirebaseAuth mAuth;
 
@@ -85,13 +87,13 @@ public class SignupActivity  extends BasicActivity{
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    startToast("회원가입에 성공");
+                                    showToast(SignupActivity.this, "회원가입에 성공");
                                     myStartLoginActivity(MainActivity.class);
                                     //UI
                                 } else {
                                     //6글자 이상이여야 한다.
                                     if(task.getException()!=null) {
-                                        startToast(task.getException().toString());
+                                        showToast(SignupActivity.this, task.getException().toString());
                                         //UI
                                     }
                                 }
@@ -100,17 +102,11 @@ public class SignupActivity  extends BasicActivity{
                             }
                         });
             }else{
-                startToast("비밀번호가 일치하지 않습니다.");
-
+                showToast(SignupActivity.this, "비밀번호가 일치하지 않습니다.");
             }
         }else{
-            startToast("이메일 또는 비밀번호를 입력해 주세요. 비밀번호는 6자 이상 입니다.");
+            showToast(SignupActivity.this, "이메일 또는 비밀번호를 입력해 주세요. 비밀번호는 6자 이상 입니다.");
         }
-    }
-
-    //Toast표시해주기 함수 내에서 listener 등록 불가.
-    private void startToast(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
     //login page로 이동
