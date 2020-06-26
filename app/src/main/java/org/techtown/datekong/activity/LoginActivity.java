@@ -28,6 +28,7 @@ public class LoginActivity extends BasicActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setToolbarTitle("로그인");
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();

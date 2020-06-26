@@ -43,21 +43,17 @@ public class MainActivity extends BasicActivity {
     private static final String TAG = "MainActivity";
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
-    private StorageReference storageRef;
     private MainAdapter mainAdapter;
     private ArrayList<PostInfo> postList;
-    private Util util;
-    private int successCount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setToolbarTitle(getResources().getString(R.string.app_name));
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReference();
+
 
         if (firebaseUser == null) {
             myStartActivity(SignupActivity.class);
@@ -102,38 +98,6 @@ public class MainActivity extends BasicActivity {
         postsUpdate();
     }
 
-    OnPostListener onPostListener = new OnPostListener() {
-        @Override
-        public void onDelete(int position) {
-            final String id = postList.get(position).getId();
-            ArrayList<String> contentsList = postList.get(position).getContents();
-            for (int i = 0; i < contentsList.size(); i++) {
-                String contents = contentsList.get(i);
-                if (isStorageUrl(contents)) {
-                    StorageReference desertRef = storageRef.child("posts/" + id + "/" + storageUrlToName(contents));
-                    desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            successCount--;
-                            storeUploader(id);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            showToast(MainActivity.this, "Error");
-                        }
-                    });
-                }
-            }
-            storeUploader(id);
-        }
-
-        @Override
-        public void onModify(int position) {
-            myStartActivity(WritePostActivity.class, postList.get(position));
-        }
-    };
-
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -148,6 +112,19 @@ public class MainActivity extends BasicActivity {
                     myStartActivity(WritePostActivity.class);
                     break;
             }
+        }
+    };
+
+    OnPostListener onPostListener = new OnPostListener() {
+        @Override
+        public void onDelete() {
+            postsUpdate();
+            Log.e("로그: ","삭제 성공");
+        }
+
+        @Override
+        public void onModify() {
+            Log.e("로그: ","수정 성공");
         }
     };
 
@@ -178,35 +155,8 @@ public class MainActivity extends BasicActivity {
         }
     }
 
-    private void storeUploader(String id) {
-        if (successCount == 0) {
-            firebaseFirestore.collection("posts").document(id)
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            showToast(MainActivity.this, "게시글을 삭제하였습니다.");
-                            postsUpdate();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                            showToast(MainActivity.this,"게시글을 삭제하지 못하였습니다.");
-                        }
-                    });
-        }
-    }
-
     private void myStartActivity(Class c) {
         Intent intent = new Intent(this, c);
-        startActivity(intent);
-    }
-
-    private void myStartActivity(Class c, PostInfo postInfo) {
-        Intent intent = new Intent(this, c);
-        intent.putExtra("postInfo", postInfo);
         startActivity(intent);
     }
 }

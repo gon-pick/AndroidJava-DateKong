@@ -30,6 +30,7 @@ public class SignupActivity  extends BasicActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        setToolbarTitle("회원가입");
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();

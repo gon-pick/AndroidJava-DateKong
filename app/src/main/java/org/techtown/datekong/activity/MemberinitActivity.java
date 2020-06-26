@@ -43,6 +43,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import static org.techtown.datekong.Util.INTENT_PATH;
 import static org.techtown.datekong.Util.showToast;
 
 public class MemberinitActivity extends BasicActivity{
@@ -56,6 +57,7 @@ public class MemberinitActivity extends BasicActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_init);
+        setToolbarTitle("회원정보");
 
         loaderLayout = findViewById(R.id.loaderLyaout);
         profileImageView = findViewById(R.id.profileImageView);
@@ -78,7 +80,7 @@ public class MemberinitActivity extends BasicActivity{
         switch (requestCode) {
             case 0: {
                 if(resultCode == Activity.RESULT_OK){
-                    profilePath = data.getStringExtra("profilePath");
+                    profilePath = data.getStringExtra(INTENT_PATH);
                     Glide.with(this).load(profilePath).centerCrop().override(500).into(profileImageView);
                 }
                 break;

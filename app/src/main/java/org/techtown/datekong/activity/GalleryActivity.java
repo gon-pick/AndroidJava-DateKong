@@ -23,6 +23,9 @@ import org.techtown.datekong.adapter.GalleryAdapter;
 
 import java.util.ArrayList;
 
+import static org.techtown.datekong.Util.GALLERY_IMAGE;
+import static org.techtown.datekong.Util.GALLERY_VIDEO;
+import static org.techtown.datekong.Util.INTENT_MEDIA;
 import static org.techtown.datekong.Util.showToast;
 
 public class GalleryActivity extends BasicActivity{
@@ -33,6 +36,7 @@ public class GalleryActivity extends BasicActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+        setToolbarTitle("갤러리");
 
         if (ContextCompat.checkSelfPermission(GalleryActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -44,7 +48,7 @@ public class GalleryActivity extends BasicActivity{
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
             } else {
-                showToast(GalleryActivity.this, "권한을 허용해주세요");
+                showToast(GalleryActivity.this, getResources().getString(R.string.please_grant_permission));
             }
         } else {
             recyclerInit();
@@ -59,7 +63,7 @@ public class GalleryActivity extends BasicActivity{
                     recyclerInit();
                 } else {
                     finish();
-                    showToast(GalleryActivity.this, "권한을 허용해 주세요");
+                    showToast(GalleryActivity.this, getResources().getString(R.string.please_grant_permission));
                 }
             }
         }
@@ -87,7 +91,8 @@ public class GalleryActivity extends BasicActivity{
         String[] projection;
 
         Intent intent = getIntent();
-        if(intent.getStringExtra("media").equals("video")){
+        final int media = intent.getIntExtra(INTENT_MEDIA, GALLERY_IMAGE);
+        if(media == GALLERY_VIDEO){
             uri = android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
             projection = new String[] { MediaStore.MediaColumns.DATA,MediaStore.Video.Media.BUCKET_DISPLAY_NAME };
         }else{
