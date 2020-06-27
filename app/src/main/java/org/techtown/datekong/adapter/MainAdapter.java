@@ -3,6 +3,7 @@ package org.techtown.datekong.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -129,6 +130,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                         return true;
                     case R.id.delete:
                         firebaseHelper.storageDelete(mDataset.get(position));
+                        Log.i("firebaseStorageDl","right?");
                         return true;
                     default:
                         return false;

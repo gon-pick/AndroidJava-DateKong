@@ -15,7 +15,6 @@ public class BasicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
     }
 
     @Override
@@ -29,8 +28,14 @@ public class BasicActivity extends AppCompatActivity {
 
     public void setToolbarTitle(String title){
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(R.drawable.ic_action_name);
+
         if(actionBar != null){
             actionBar.setTitle(title);
+        }else{
+            actionBar.setTitle(title);
+            actionBar.setDisplayUseLogoEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
         }
     }
 }

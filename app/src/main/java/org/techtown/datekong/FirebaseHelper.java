@@ -46,6 +46,7 @@ public class FirebaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         successCount--;
+                        showToast(activity, "파이어베이스의 게시물이 삭제되었습니다.");
                         storeDelete(id);
                     }
                 }).addOnFailureListener(new OnFailureListener() {

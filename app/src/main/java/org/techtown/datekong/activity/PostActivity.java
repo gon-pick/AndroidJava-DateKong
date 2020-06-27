@@ -55,8 +55,9 @@ public class PostActivity extends BasicActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.post, menu);
-        return super.onCreateOptionsMenu(menu);
+        //getMenuInflater().inflate(R.menu.post, menu);
+        //return super.onCreateOptionsMenu(menu);
+        return false;
     }
 
     @Override

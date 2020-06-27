@@ -1,6 +1,7 @@
 package org.techtown.datekong.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,7 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,6 +98,26 @@ public class MainActivity extends BasicActivity {
         recyclerView.setAdapter(mainAdapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.logoutButton:
+                FirebaseAuth.getInstance().signOut();
+                showToast(MainActivity.this,"로그아웃이 완료되었습니다.");
+                myStartActivity(SignupActivity.class);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     protected void onResume() {
         super.onResume();
         postsUpdate();
@@ -102,12 +127,11 @@ public class MainActivity extends BasicActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                /*
                 case R.id.logoutButton:
                     FirebaseAuth.getInstance().signOut();
-                    myStartActivity(SignUpActivity.class);
+                    myStartActivity(SignupActivity.class);
                     break;
-                */
+
                 case R.id.floatingActionButton:
                     myStartActivity(WritePostActivity.class);
                     break;
@@ -124,6 +148,7 @@ public class MainActivity extends BasicActivity {
 
         @Override
         public void onModify() {
+            postsUpdate();
             Log.e("로그: ","수정 성공");
         }
     };
