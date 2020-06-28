@@ -17,18 +17,11 @@
             android:id="@+id/naverSearch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="여기에서 검색하세요."
+            android:hint="메모장으로 활용하세요. [ex) 다이소-스타벅스-설빙]
+             (터치를 통해 장소를 찾아보세요.)"
             android:gravity="center_vertical"
             android:layout_weight="8"
-            android:background="@drawable/edittext"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="검색"
-            android:textSize="30dp"
-            android:padding="10dp"
-            android:id="@+id/naverBtn"/>
+            android:background="@drawable/edittext" />
 
     </LinearLayout>
 

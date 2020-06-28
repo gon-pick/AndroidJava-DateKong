@@ -22,7 +22,7 @@
 <!--        <meta-data android:name="com.naver.maps.q3lamu1sfj"-->
 <!--                    android:value="q3lamu1sfj"/>-->
 
-        <activity android:name=".activity.NaverMapActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -46,7 +46,7 @@
         </activity>
         <activity android:name=".activity.PostActivity">
         </activity>
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.NaverMapActivity">
         </activity>
     </application>
 
