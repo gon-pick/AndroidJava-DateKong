@@ -113,6 +113,10 @@ public class MainActivity extends BasicActivity {
                 showToast(MainActivity.this,"로그아웃이 완료되었습니다.");
                 myStartActivity(SignupActivity.class);
                 break;
+            case R.id.thisButton:
+                myStartActivity(NaverMapActivity.class);
+                finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

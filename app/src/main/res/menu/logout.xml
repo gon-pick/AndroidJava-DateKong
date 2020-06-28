@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/homeButton"
+        android:title="홈"/>
+    <item android:id="@+id/thisButton"
+        android:title="요기가자"/>
     <item android:id="@+id/logoutButton"
         android:title="로그아웃"/>
 </menu>

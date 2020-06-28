@@ -18,10 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+
+<!--        <meta-data android:name="com.naver.maps.q3lamu1sfj"-->
+<!--                    android:value="q3lamu1sfj"/>-->
+
+        <activity android:name=".activity.NaverMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,6 +45,8 @@
         <activity android:name=".activity.WritePostActivity">
         </activity>
         <activity android:name=".activity.PostActivity">
+        </activity>
+        <activity android:name=".activity.MainActivity">
         </activity>
     </application>
 

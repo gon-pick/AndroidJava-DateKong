@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import org.techtown.datekong.R;
 
 public class BasicActivity extends AppCompatActivity {
+    ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +29,15 @@ public class BasicActivity extends AppCompatActivity {
 
 
     public void setToolbarTitle(String title){
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(R.drawable.ic_action_name);
+        actionBar = getSupportActionBar();
 
         if(actionBar != null){
             actionBar.setTitle(title);
-        }else{
-            actionBar.setTitle(title);
+            actionBar.setIcon(R.drawable.ic_action_name);
             actionBar.setDisplayUseLogoEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+        }else{
+            actionBar.setTitle(title);
         }
     }
 }
